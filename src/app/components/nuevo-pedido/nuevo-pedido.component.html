@@ -1,0 +1,41 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card-body">
+              <p class="lead"><b>NUEVO PEDIDO</b></p>
+              <br>
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <mat-form-field>
+                  <input matInput placeholder="Fecha de entrega" formControlName="fecha_entrega" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select [formControl]="bankCtrl" placeholder="Cliente" #singleSelect>
+                        <mat-option>
+                          <ngx-mat-select-search 
+                          [formControl]="bankFilterCtrl"
+                          [placeholderLabel]="'Buscar cliente'" 
+                          [noEntriesFoundLabel]="'Cliente no registrado'"></ngx-mat-select-search>
+                        </mat-option>
+                  
+                        <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
+                          {{bank.cliente}}
+                        </mat-option>
+                      </mat-select>                  
+                  </mat-form-field>
+                  <mat-form-field>
+                      <input type="number" matInput placeholder="Anticipo" formControlName="anticipo" [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
+                    </mat-form-field>
+                <button mat-raised-button class="button" type="submit" color="primary"
+                [disabled]="registerForm.invalid">Guardar</button>
+              </form>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
