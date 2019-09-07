@@ -6,6 +6,9 @@ import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BlockUIModule } from 'ng-block-ui';
+import { BlockUIHttpModule } from 'ng-block-ui/http';
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -50,6 +53,8 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
+import { BlockTemplateComponent } from './block-template/block-template.component';
 
 @NgModule({
   exports: [
@@ -101,12 +106,21 @@ export class MaterialModule {}
         NavbarModule,
         FooterModule,
         FixedpluginModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
+        BlockUIModule.forRoot({
+          template: BlockTemplateComponent
+        }), // Import BlockUIModule
+        BlockUIHttpModule.forRoot(), // Import Block UI Http Module
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
-        AuthLayoutComponent
+        AuthLayoutComponent,
+        BlockTemplateComponent
+    ],
+    entryComponents: [
+      BlockTemplateComponent // Make sure to add it to the entry components
     ],
     bootstrap:    [ AppComponent ]
 })
