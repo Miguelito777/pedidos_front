@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class AppComponent implements OnInit {
   private _router: Subscription;
-
+  public blockTemplate;
   constructor( private router: Router ) {
   }
 

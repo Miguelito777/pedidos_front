@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ComponentsService } from '../components.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { recursosVarios } from 'app/recursos/recursosVarios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-pedido',
@@ -45,7 +46,8 @@ export class NuevoPedidoComponent implements OnInit {
   private detPedido: any[] = [];
   constructor(
     private formBuilder: FormBuilder,
-    private api:ComponentsService
+    private api:ComponentsService,
+    public router: Router
   ) { }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -147,7 +149,8 @@ export class NuevoPedidoComponent implements OnInit {
       if(agregar){
         let prodPed = {
           id_producto:this.productCtrl.value.id,
-          producto:this.productCtrl.value.producto,
+          det_pedido:this.productCtrl.value.producto,
+          observaciones:"Ninguna",
           cantidad:this.registerForm.controls.cantidad.value,
           precio:this.registerForm.controls.precio.value,
           subtotal:+this.registerForm.controls.precio.value * +this.registerForm.controls.cantidad.value 
@@ -214,7 +217,8 @@ export class NuevoPedidoComponent implements OnInit {
         
         this.api.setPedido(this.registerForm.value).subscribe(
           data => {
-            console.log(alert('SUCCESS!! :-)'));
+            new recursosVarios().showNotification('top', 'right', "Pedido realizado exitosamente", 4);
+            this.router.navigate(['/components/Pedidos']);
           }
         );
       }else{

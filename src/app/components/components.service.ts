@@ -22,7 +22,18 @@ export class ComponentsService {
       catchError(this.handleError('catalogo', undefined))
     );
   }  
-
+  getMadres(): Observable<any>{
+    return this.http.get<any>('https://hidden-shore-94764.herokuapp.com/api/madres')
+    .pipe(
+      catchError(this.handleError('catalogo', undefined))
+    );
+  }  
+  getPedidos(): Observable<any>{
+    return this.http.get<any>('https://serene-basin-17994.herokuapp.com/PEDIDOS/pedidos/')
+    .pipe(
+      catchError(this.handleError('pedidos', undefined))
+    );
+  } 
   setPedido(data): Observable<any>{
     return this.http.post<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'pedidos/'),data)
     .pipe(

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import { ComponentsService } from '../components.service';
+import { MatDialog } from '@angular/material';
+import { DetPedidoComponent } from './det-pedido/det-pedido.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -25,15 +28,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./pedido.component.scss']
 })
 export class PedidoComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['CODIGO', 'FECHA_ENTREGA', 'CLIENTE', 'ANTICIPO', 'OPCIONES'];
+  pedidos:any[]=[];
+  dataSource = new MatTableDataSource(this.pedidos);
 
-  constructor() { }
+  constructor(
+    private api: ComponentsService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
+    this.api.getPedidos().subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource(data);
+      }
+    )
+    this.api.getMadres().subscribe(
+      data => {
+        console.log(data);
+      }
+    )
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  detPedido(item){
+    console.log(item);
+    
+    const dialogRef = this.dialog.open(DetPedidoComponent, {
+      width: '800px',
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
 }

@@ -15,7 +15,8 @@ import { TypographyComponent } from './typography/typography.component';
 import { PedidoComponent } from './pedido/pedido.component';
 import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatDialogModule } from '@angular/material';
+import { DetPedidoComponent } from './pedido/det-pedido/det-pedido.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { MatInputModule } from '@angular/material';
     ReactiveFormsModule,
     MatInputModule,
     MaterialModule,
+    MatDialogModule,
     NgxMatSelectSearchModule
   ],
   declarations: [
@@ -36,7 +38,11 @@ import { MatInputModule } from '@angular/material';
       SweetAlertComponent,
       TypographyComponent,
       PedidoComponent,
-      NuevoPedidoComponent
+      NuevoPedidoComponent,
+      DetPedidoComponent
+  ],
+  entryComponents : [
+    DetPedidoComponent
   ]
 })
 
