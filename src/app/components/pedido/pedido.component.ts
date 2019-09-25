@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ComponentsService } from '../components.service';
 import { MatDialog } from '@angular/material';
 import { DetPedidoComponent } from './det-pedido/det-pedido.component';
+import { PedidoPdfComponent } from './pedido-pdf/pedido-pdf.component';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -43,11 +44,11 @@ export class PedidoComponent implements OnInit {
         this.dataSource = new MatTableDataSource(data);
       }
     )
-    this.api.getMadres().subscribe(
+    /*this.api.getMadres().subscribe(
       data => {
         console.log(data);
       }
-    )
+    )*/
   }
 
   applyFilter(filterValue: string) {
@@ -65,5 +66,19 @@ export class PedidoComponent implements OnInit {
       console.log('The dialog was closed');
       //this.animal = result;
     });
+  }
+  getPDF(row){
+    window.open('http://localhost:8000/PEDIDOS/pedidos/pedidoPDF/'+row.id);
+    /*const dialogRef = this.dialog.open(PedidoPdfComponent, {
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        // After dialog is closed we're doing frontend updates
+        // For add we're just pushing a new row inside DataService
+
+      }
+    });*/
   }
 }

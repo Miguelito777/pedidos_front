@@ -17,6 +17,7 @@ import { NuevoPedidoComponent } from './nuevo-pedido/nuevo-pedido.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatInputModule, MatDialogModule } from '@angular/material';
 import { DetPedidoComponent } from './pedido/det-pedido/det-pedido.component';
+import { PedidoPdfComponent } from './pedido/pedido-pdf/pedido-pdf.component';
 
 @NgModule({
   imports: [
@@ -39,10 +40,12 @@ import { DetPedidoComponent } from './pedido/det-pedido/det-pedido.component';
       TypographyComponent,
       PedidoComponent,
       NuevoPedidoComponent,
-      DetPedidoComponent
+      DetPedidoComponent,
+      PedidoPdfComponent
   ],
   entryComponents : [
-    DetPedidoComponent
+    DetPedidoComponent,
+    PedidoPdfComponent
   ]
 })
 

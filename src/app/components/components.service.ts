@@ -29,9 +29,15 @@ export class ComponentsService {
     );
   }  
   getPedidos(): Observable<any>{
-    return this.http.get<any>('https://serene-basin-17994.herokuapp.com/PEDIDOS/pedidos/')
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'pedidos'))
     .pipe(
       catchError(this.handleError('pedidos', undefined))
+    );
+  } 
+  getPedidoPDF(): Observable<any>{
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'pedidos/pedidoPDF'))
+    .pipe(
+      catchError(this.handleError('pedidos/pedidoPDF', undefined))
     );
   } 
   setPedido(data): Observable<any>{
