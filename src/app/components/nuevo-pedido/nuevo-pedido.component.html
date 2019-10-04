@@ -10,19 +10,20 @@
             <div class="row">
               <div class="col-md-4">
                 <mat-form-field>
-                  <input matInput [matDatepicker]="picker" placeholder="Fecha de entrega" formControlName="fecha_entrega" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }">
+                  <input matInput [matDatepicker]="picker" placeholder="Fecha de entrega"
+                    formControlName="fecha_entrega" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
               </div>
               <div class="col-md-4">
                 <mat-form-field>
-                  <mat-select [formControl]="bankCtrl" placeholder="Cliente" #singleSelect (selectionChange)="selectCliente()">
+                  <mat-select [formControl]="bankCtrl" placeholder="Cliente" #singleSelect
+                    (selectionChange)="selectCliente()">
                     <mat-option>
                       <ngx-mat-select-search [formControl]="bankFilterCtrl" [placeholderLabel]="'Buscar cliente...'"
                         [noEntriesFoundLabel]="'Cliente no registrado'"></ngx-mat-select-search>
                     </mat-option>
-
                     <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
                       {{bank.cliente}}
                     </mat-option>
@@ -31,81 +32,110 @@
               </div>
               <div class="col-md-4">
                 <mat-form-field>
+                  <input type="text" placeholder="Dirección de entrega" matInput [formControl]="myControlDireccion"
+                    [matAutocomplete]="direccion" (ngModelChange)="changeDir()">
+                  <mat-autocomplete #direccion="matAutocomplete" [displayWith]="displaydir">
+                    <mat-option *ngFor="let option of filteredDirecciones | async" [value]="option">
+                      {{option.direccion_pedido}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field>
                   <input type="number" matInput placeholder="Anticipo" formControlName="anticipo"
                     [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+                  <input matInput atp-time-picker value="19:00" formControlName="hora_entrega"/>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+                  <textarea matInput 
+                  placeholder="Observaciones del pedido" 
+                  formControlName="observaciones">
+               </textarea>
                 </mat-form-field>
               </div>
             </div>
             <hr>
             <div class="row">
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <mat-select [formControl]="productCtrl" placeholder="Producto" #productoSelect (selectionChange)="selectProduct()">
-                          <mat-option>
-                            <ngx-mat-select-search [formControl]="productFilterCtrl" [placeholderLabel]="'Buscar producto...'"
-                              [noEntriesFoundLabel]="'Producto no registrado'"></ngx-mat-select-search>
-                          </mat-option>
-      
-                          <mat-option *ngFor="let bank of filteredProducts | async" [value]="bank">
-                            {{bank.producto}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                    <mat-form-field>
-                        <input type="number" matInput placeholder="Cantidad" formControlName="cantidad"
-                          [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
-                      </mat-form-field>
-                </div>
-                <div class="col-md-2">
-                    <mat-form-field>
-                        <input type="number" matInput placeholder="Precio" formControlName="precio"
-                          [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
-                      </mat-form-field>
-                </div>
-                <div class="col-md-2">
-                    <a mat-button (click)="addProducto()">
-                      <i class="material-icons">
-                          add_circle
-                          </i> Agregar
-                  </a>   
-                </div>
+              <div class="col-md-4">
+                <mat-form-field>
+                  <mat-select [formControl]="productCtrl" placeholder="Producto" #productoSelect
+                    (selectionChange)="selectProduct()">
+                    <mat-option>
+                      <ngx-mat-select-search [formControl]="productFilterCtrl" [placeholderLabel]="'Buscar producto...'"
+                        [noEntriesFoundLabel]="'Producto no registrado'"></ngx-mat-select-search>
+                    </mat-option>
+
+                    <mat-option *ngFor="let bank of filteredProducts | async" [value]="bank">
+                      {{bank.producto}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field>
+                  <input type="number" matInput placeholder="Cantidad" formControlName="cantidad"
+                    [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field>
+                  <input type="number" matInput placeholder="Precio" formControlName="precio"
+                    [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
+                </mat-form-field>
+              </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <mat-form-field>
-                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                      </mat-form-field>
-        
-                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        
-                        <ng-container matColumnDef="PRODUCTO">
-                          <th mat-header-cell *matHeaderCellDef> PRODUCTO </th>
-                          <td mat-cell *matCellDef="let element"> {{element.det_pedido}} </td>
-                        </ng-container>
-        
-                        <ng-container matColumnDef="CANTIDAD">
-                          <th mat-header-cell *matHeaderCellDef> CANTIDAD </th>
-                          <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
-                        </ng-container>
-        
-                        <ng-container matColumnDef="PRECIO">
-                          <th mat-header-cell *matHeaderCellDef> PRECIO </th>
-                          <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
-                        </ng-container>
-        
-                        <ng-container matColumnDef="SUBTOTAL">
-                          <th mat-header-cell *matHeaderCellDef> SUBTOTAL </th>
-                          <td mat-cell *matCellDef="let element"> {{element.subtotal}} </td>
-                        </ng-container>
-        
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                      </table>
-                </div>
+              <div class="col-md-2">
+                <a mat-button (click)="addProducto()">
+                  <i class="material-icons">
+                    add_circle
+                  </i> Agregar
+                </a>
               </div>
-              <hr>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="PRODUCTO">
+                    <th mat-header-cell *matHeaderCellDef> PRODUCTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.det_pedido}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="CANTIDAD">
+                    <th mat-header-cell *matHeaderCellDef> CANTIDAD </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="PRECIO">
+                    <th mat-header-cell *matHeaderCellDef> PRECIO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="SUBTOTAL">
+                    <th mat-header-cell *matHeaderCellDef> SUBTOTAL </th>
+                    <td mat-cell *matCellDef="let element"> {{element.subtotal}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+            </div>
+            <hr>
             <!--<mat-form-field>
 
                   <input matInput placeholder="Fecha de entrega" formControlName="fecha_entrega" [ngClass]="{ 'is-invalid': submitted && f.fecha_entrega.errors }" />

@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject, Observable } from 'rxjs';
 import { MatSelect } from '@angular/material';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith, map } from 'rxjs/operators';
 import { ComponentsService } from '../components.service';
 import {MatTableDataSource} from '@angular/material/table';
 import { recursosVarios } from 'app/recursos/recursosVarios';
@@ -16,10 +16,13 @@ import { Router } from '@angular/router';
 export class NuevoPedidoComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
-
+  optionsDirecciones: any[] = [];
+  filteredDirecciones: Observable<any[]>;
+  myControlDireccion = new FormControl();
     /** list of banks */
     protected clientes: any[] = [];
     protected productos: any[] = [];
+    protected direcciones: any[] = [];
 
     /** control for the selected bank */
     public bankCtrl: FormControl = new FormControl();
@@ -57,7 +60,7 @@ export class NuevoPedidoComponent implements OnInit {
       data => { 
         this.clientes = data.clientes;
         this.productos = data.productos;
-
+        this.direcciones = data.direcciones;
         //clientes
         this.bankCtrl.setValue(this.clientes);
         this.filteredBanks.next(this.clientes.slice());
@@ -75,18 +78,33 @@ export class NuevoPedidoComponent implements OnInit {
           .subscribe(() => {
             this.filterProducts();
           });
+       
+        // DIRECCIONES DE ENTREGA
+        console.log(this.direcciones);
+        
+        this.optionsDirecciones = this.direcciones;
+        this.filteredDirecciones = this.myControlDireccion.valueChanges
+        .pipe(
+          startWith<string | any>(''),
+          map(value => typeof value === 'string' ? value : value.direccion_pedido),
+          map(direccion_pedido => direccion_pedido ? this._filterDir(direccion_pedido) : this.optionsDirecciones.slice())
+        );   
       } 
     );
 
     this.registerForm = this.formBuilder.group({
       fecha_entrega: ['', Validators.required],
+      hora_entrega: ['', Validators.required],
       id_cliente: [],
       anticipo: [1, [Validators.min(1),Validators.required]],
       productos: [],
       cantidad: [''],
       precio: [''],
-      FECHA_INICIO : [new Date()]
-      //email: ['', [Validators.required, Validators.email]],
+      FECHA_INICIO : [new Date()],
+      id_direccion_pedido:[null],
+      direccion_pedido:[null],
+      observaciones:[null]
+      //,email: ['', [Validators.required, Validators.email]],
       //password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -207,13 +225,13 @@ export class NuevoPedidoComponent implements OnInit {
       FECHA_FIN = dd + '/' + mm + '/' + yyyy;
   
       if (this.verifyStartEndDate(FECHA_INICIO, FECHA_FIN)) {
-        console.log(this.registerForm.value);
         this.registerForm.value.id_estado = 1;
         this.registerForm.value.id_usuario_crea = 1;
         this.registerForm.value.id_usuario_modifica = 1;
-        this.registerForm.value.observaciones = "NINGUNA";
+        //this.registerForm.value.observaciones = "NINGUNA";
         this.registerForm.value.pedido = "NUEVO PEDIDO";
         
+        //console.log(this.registerForm.value);
         
         this.api.setPedido(this.registerForm.value).subscribe(
           data => {
@@ -246,5 +264,19 @@ export class NuevoPedidoComponent implements OnInit {
       }
     }
     return validDate;
+  }
+  displaydir(user?: any): string | undefined {
+    return user ? user.direccion_pedido : undefined;
+  }
+  private _filterDir(name: string): any[] {
+    const filterValue = name.toLowerCase();
+    return this.optionsDirecciones.filter(option => option.direccion_pedido.toLowerCase().indexOf(filterValue) === 0);
+  }
+  changeDir(){
+    if(this.myControlDireccion.value.id != undefined){
+      this.registerForm.controls.id_direccion_pedido.setValue(this.myControlDireccion.value.id);
+    }else{
+      this.registerForm.controls.direccion_pedido.setValue(this.myControlDireccion.value);
+    };
   }
 }
