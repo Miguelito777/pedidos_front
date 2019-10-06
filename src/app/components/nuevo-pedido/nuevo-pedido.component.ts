@@ -79,9 +79,7 @@ export class NuevoPedidoComponent implements OnInit {
             this.filterProducts();
           });
        
-        // DIRECCIONES DE ENTREGA
-        console.log(this.direcciones);
-        
+        // DIRECCIONES DE ENTREGA        
         this.optionsDirecciones = this.direcciones;
         this.filteredDirecciones = this.myControlDireccion.valueChanges
         .pipe(
@@ -99,11 +97,12 @@ export class NuevoPedidoComponent implements OnInit {
       anticipo: [1, [Validators.min(1),Validators.required]],
       productos: [],
       cantidad: [''],
-      precio: [''],
+      precio: [{value:'', disabled: true}],
       FECHA_INICIO : [new Date()],
       id_direccion_pedido:[null],
       direccion_pedido:[null],
-      observaciones:[null]
+      observaciones:[null],
+      observacionesProd:[null]
       //,email: ['', [Validators.required, Validators.email]],
       //password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -164,11 +163,11 @@ export class NuevoPedidoComponent implements OnInit {
           }
         }
       }
-      if(agregar){
+      if(agregar){        
         let prodPed = {
           id_producto:this.productCtrl.value.id,
           det_pedido:this.productCtrl.value.producto,
-          observaciones:"Ninguna",
+          observaciones:this.registerForm.value.observacionesProd,
           cantidad:this.registerForm.controls.cantidad.value,
           precio:this.registerForm.controls.precio.value,
           subtotal:+this.registerForm.controls.precio.value * +this.registerForm.controls.cantidad.value 
@@ -180,6 +179,7 @@ export class NuevoPedidoComponent implements OnInit {
         this.registerForm.controls.productos.setValue(this.detPedido);
         this.productCtrl.setValue(this.productos);
         this.registerForm.controls.cantidad.setValue('');
+        this.registerForm.controls.observacionesProd.setValue('');
         this.registerForm.controls.precio.setValue(''); 
       }else{
         new recursosVarios().showNotification('top', 'right', "Producto ya agregado, si desea aumentar la cantidad del pedido, anule el agregado y registrelo nuevamente con el total", 4);
@@ -230,13 +230,13 @@ export class NuevoPedidoComponent implements OnInit {
         this.registerForm.value.id_usuario_modifica = 1;
         //this.registerForm.value.observaciones = "NINGUNA";
         this.registerForm.value.pedido = "NUEVO PEDIDO";
-        
-        //console.log(this.registerForm.value);
+        delete this.registerForm.value.observacionesProd;
+        console.log(this.registerForm.value);
         
         this.api.setPedido(this.registerForm.value).subscribe(
           data => {
-            new recursosVarios().showNotification('top', 'right', "Pedido realizado exitosamente", 4);
-            this.router.navigate(['/components/Pedidos']);
+            new recursosVarios().showNotification('top', 'right', "Pedido realizado exitosamente", 2);
+            this.router.navigate(['/components/PedidosVentas']);
           }
         );
       }else{

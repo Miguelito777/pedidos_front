@@ -29,7 +29,7 @@ export class ComponentsService {
     );
   }  
   getPedidos(): Observable<any>{
-    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'pedidos'))
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'pedidos/ventas'))
     .pipe(
       catchError(this.handleError('pedidos', undefined))
     );

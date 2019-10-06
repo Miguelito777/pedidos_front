@@ -18,7 +18,10 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MatInputModule, MatDialogModule } from '@angular/material';
 import { DetPedidoComponent } from './pedido/det-pedido/det-pedido.component';
 import { PedidoPdfComponent } from './pedido/pedido-pdf/pedido-pdf.component';
-import { AmazingTimePickerModule } from 'amazing-time-picker'; // this line you need
+import { AmazingTimePickerModule } from 'amazing-time-picker';
+import { PedidoProduccionComponent } from './pedido-produccion/pedido-produccion.component';
+import { PedidosTallerComponent } from './pedidos-taller/pedidos-taller.component';
+import { PedidosAdministracionComponent } from './pedidos-administracion/pedidos-administracion.component'; // this line you need
 //import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   imports: [
@@ -44,7 +47,10 @@ import { AmazingTimePickerModule } from 'amazing-time-picker'; // this line you 
       PedidoComponent,
       NuevoPedidoComponent,
       DetPedidoComponent,
-      PedidoPdfComponent
+      PedidoPdfComponent,
+      PedidoProduccionComponent,
+      PedidosTallerComponent,
+      PedidosAdministracionComponent
   ],
   entryComponents : [
     DetPedidoComponent,

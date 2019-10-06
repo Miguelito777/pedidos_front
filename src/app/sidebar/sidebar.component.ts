@@ -33,7 +33,10 @@ export const ROUTES: RouteInfo[] = [{
         icontype: 'apps',
         collapse: 'components',
         children: [
-            {path: 'Pedidos', title: 'Listado', ab:'L'},
+            {path: 'PedidosVentas', title: 'Pedidos Ventas', ab:'L'},
+            {path: 'PedidosProduccion', title: 'Pedidos Producción', ab:'L'},
+            {path: 'PedidosTaller', title: 'Pedidos Taller', ab:'L'},
+            {path: 'PedidosAdministracion', title: 'Pedidos Administración', ab:'L'}
             /*{path: 'grid', title: 'Grid System', ab:'GS'},
             {path: 'panels', title: 'Panels', ab:'P'},
             {path: 'sweet-alert', title: 'Sweet Alert', ab:'SA'},
@@ -41,7 +44,7 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'icons', title: 'Icons', ab:'I'},
             {path: 'typography', title: 'Typography', ab:'T'}*/
         ]
-    },{
+    }/*,{
         path: '/forms',
         title: 'VENTAS',
         type: 'sub',
@@ -75,7 +78,7 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'fullscreen', title: 'Full Screen Map', ab:'FSM'},
             {path: 'vector', title: 'Vector Map', ab:'VM'}
         ]
-    }/*,{
+    }*//*,{
         path: '/widgets',
         title: 'Widgets',
         type: 'link',

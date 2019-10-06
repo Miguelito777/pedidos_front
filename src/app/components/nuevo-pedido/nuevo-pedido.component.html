@@ -89,7 +89,15 @@
               <div class="col-md-2">
                 <mat-form-field>
                   <input type="number" matInput placeholder="Precio" formControlName="precio"
-                    [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }" />
+                    [ngClass]="{ 'is-invalid': submitted && f.anticipo.errors }"/>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field>
+                  <textarea matInput 
+                  placeholder="Observaciones o leyenda" 
+                  formControlName="observacionesProd">
+               </textarea>
                 </mat-form-field>
               </div>
             </div>

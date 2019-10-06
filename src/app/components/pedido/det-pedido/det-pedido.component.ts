@@ -8,7 +8,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./det-pedido.component.scss']
 })
 export class DetPedidoComponent implements OnInit {
-  displayedColumns: string[] = ['PEDIDO', 'CANTIDAD', 'PRECIO', 'SUBTOTAL'];
+  displayedColumns: string[] = ['PEDIDO', 'OBSERVACIONES', 'CANTIDAD', 'PRECIO', 'SUBTOTAL'];
   detPedido:any[]=[];
   dataSource = new MatTableDataSource(this.detPedido);
   totalPedido=0;
