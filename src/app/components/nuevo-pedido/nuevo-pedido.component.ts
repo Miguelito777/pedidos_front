@@ -56,6 +56,42 @@ export class NuevoPedidoComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
+    /*this.api.getClientes().subscribe(
+      data => {
+        this.clientes = data;
+        this.bankCtrl.setValue(this.clientes);
+        this.filteredBanks.next(this.clientes.slice());
+        this.bankFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterBanks();
+          });
+      }
+    );
+    this.api.getProductos().subscribe(
+      data => {
+        this.productos = data;
+        this.productCtrl.setValue(this.productos);
+        this.filteredProducts.next(this.productos.slice());
+        this.productFilterCtrl.valueChanges
+          .pipe(takeUntil(this._onDestroy))
+          .subscribe(() => {
+            this.filterProducts();
+          });
+      }
+    );
+    this.api.getDirecciones().subscribe(
+      data => {
+        this.direcciones = data;
+        this.optionsDirecciones = this.direcciones;
+        this.filteredDirecciones = this.myControlDireccion.valueChanges
+        .pipe(
+          startWith<string | any>(''),
+          map(value => typeof value === 'string' ? value : value.direccion_pedido),
+          map(direccion_pedido => direccion_pedido ? this._filterDir(direccion_pedido) : this.optionsDirecciones.slice())
+        );   
+      }
+    );*/
     this.api.getCatalogo().subscribe(
       data => { 
         this.clientes = data.clientes;
@@ -86,7 +122,7 @@ export class NuevoPedidoComponent implements OnInit {
           startWith<string | any>(''),
           map(value => typeof value === 'string' ? value : value.direccion_pedido),
           map(direccion_pedido => direccion_pedido ? this._filterDir(direccion_pedido) : this.optionsDirecciones.slice())
-        );   
+        );
       } 
     );
 
@@ -231,6 +267,10 @@ export class NuevoPedidoComponent implements OnInit {
         //this.registerForm.value.observaciones = "NINGUNA";
         this.registerForm.value.pedido = "NUEVO PEDIDO";
         delete this.registerForm.value.observacionesProd;
+        delete this.registerForm.value.cantidad;
+        delete this.registerForm.value.FECHA_INICIO;
+        //delete this.registerForm.value.direccion_pedido;
+        //delete this.registerForm.value.productos;
         console.log(this.registerForm.value);
         
         this.api.setPedido(this.registerForm.value).subscribe(

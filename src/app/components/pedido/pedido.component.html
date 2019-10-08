@@ -59,17 +59,17 @@
                 <!-- Weight Column -->
                 <ng-container matColumnDef="TOTAL">
                   <th mat-header-cell *matHeaderCellDef> TOTAL PEDIDO</th>
-                  <td mat-cell *matCellDef="let element"> <small>{{element.total_pedido| currency: "Q." : fractionsize}}</small></td>
+                  <td mat-cell *matCellDef="let element"> <small>{{element.total_pedido| currency: "Q."}}</small></td>
                 </ng-container>
 
                 <ng-container matColumnDef="ANTICIPO">
                   <th mat-header-cell *matHeaderCellDef> ANTICIPO PEDIDO </th>
-                  <td mat-cell *matCellDef="let element"> <small>{{element.anticipo| currency: "Q." : fractionsize}}</small> </td>
+                  <td mat-cell *matCellDef="let element"> <small>{{element.anticipo| currency: "Q."}}</small> </td>
                 </ng-container>
 
                 <ng-container matColumnDef="SALDO">
                   <th mat-header-cell *matHeaderCellDef> SALDO PEDIDO</th>
-                  <td mat-cell *matCellDef="let element"> <small><b>{{element.saldo| currency: "Q." : fractionsize}}</b></small> </td>
+                  <td mat-cell *matCellDef="let element"> <small><b>{{element.saldo| currency: "Q."}}</b></small> </td>
                 </ng-container>
 
                 <ng-container matColumnDef="ENTREGA">
