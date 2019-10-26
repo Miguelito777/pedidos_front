@@ -1,0 +1,104 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="container">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-12">
+                  <!--<div class="card-header">-->
+                  <i class="material-icons">
+                    insert_invitation
+                  </i>
+                  <b> AGREGAR NUEVO CLIENTE</b>
+                  <!--</div>-->
+                </div>
+              </div>
+              <div class="toolbar">
+                <form [formGroup]="formCliente">
+                  <div class="row">
+                    <mat-form-field class="col-md-4">
+                      <input matInput formControlName="cliente" placeholder="Nombre del cliente">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-4">
+                      <input matInput formControlName="correo" placeholder="Correo electrónico">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-4">
+                      <input matInput formControlName="telefono" placeholder="Telefono">
+                    </mat-form-field>
+                  </div>
+                  <div class="row">
+                    <mat-form-field class="col-md-4">
+                      <input matInput formControlName="dpi" placeholder="DPI">
+                    </mat-form-field>
+                    <mat-form-field class="col-md-4">
+                      <input matInput formControlName="nit" placeholder="NIT">
+                    </mat-form-field>
+                    <a mat-button (click)="addCliente()">
+                      <i class="material-icons">
+                        add_circle
+                      </i> Agregar
+                    </a>
+                  </div>
+                </form>
+                <!--        Here you can write extra buttons/actions for the toolbar              -->
+              </div>
+        </div>
+        <div class="card-body">
+          <!-- end content-->
+          <div class="row">
+            <div class="col-md-12">
+              <!--<div class="card-header">-->
+              <i class="material-icons">
+                insert_invitation
+              </i>
+              <b> LISTADO DE CLIENTES</b>
+              <!--</div>-->
+            </div>
+          </div>
+          <div class="material-datatables">
+            <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0"
+              width="100%" style="width:100%">
+              <thead>
+                <tr>
+                  <th>NOMBRE</th>
+                  <th>CORREO</th>
+                  <th>TELEFONO</th>
+                  <th>DPI</th>
+                  <th>NIT</th>
+                  <th class="disabled-sorting text-right">OPCIONES</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th>NOMBRE</th>
+                  <th>CORREO</th>
+                  <th>TELEFONO</th>
+                  <th>DPI</th>
+                  <th>NIT</th>
+                  <th class="disabled-sorting text-right">OPCIONES</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr *ngFor="let row of dataTable.dataRows">
+                  <td>{{row.cliente}}</td>
+                  <td>{{row.correo}}</td>
+                  <td>{{row.telefono}}</td>
+                  <td>{{row.dpi}}</td>
+                  <td>{{row.nit}}</td>
+                  <td class="text-right">
+                    <a href="#" class="btn btn-link btn-info btn-just-icon like"><i
+                        class="material-icons">favorite</i></a>
+                    <a href="#" class="btn btn-link btn-warning btn-just-icon edit"><i
+                        class="material-icons">dvr</i></a>
+                    <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i
+                        class="material-icons">close</i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

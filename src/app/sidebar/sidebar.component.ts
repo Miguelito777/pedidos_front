@@ -44,6 +44,18 @@ export const ROUTES: RouteInfo[] = [{
             {path: 'icons', title: 'Icons', ab:'I'},
             {path: 'typography', title: 'Typography', ab:'T'}*/
         ]
+    },{
+        path: '/catalogo',
+        title: 'CATALOGO',
+        type: 'sub',
+        icontype: 'content_paste',
+        collapse: 'forms',
+        children: [
+            {path: 'clientes', title: 'Administrar clientes', ab:'RF'}/*,
+            {path: 'extended', title: 'Extended Forms', ab:'EF'},
+            {path: 'validation', title: 'Validation Forms', ab:'VF'},
+            {path: 'wizard', title: 'Wizard', ab:'W'}*/
+        ]
     }/*,{
         path: '/forms',
         title: 'VENTAS',

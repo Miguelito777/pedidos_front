@@ -17,7 +17,7 @@ import { PedidosAdministracionComponent } from './pedidos-administracion/pedidos
 export const ComponentsRoutes: Routes = [
     {
       path: '',
-      children: [ {
+      children: [{
         path: 'PedidosVentas',
         component: PedidoComponent
     },{
