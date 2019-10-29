@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { ComponentsService } from '../components.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { DetPedidoComponent } from './det-pedido/det-pedido.component';
 export interface PeriodicElement {
   name: string;
@@ -31,7 +31,8 @@ export class PedidoComponent implements OnInit {
   displayedColumns: string[] = ['CODIGO', 'FECHA_ENTREGA', 'CLIENTE', 'TOTAL', 'ANTICIPO', 'SALDO', 'ENTREGA', 'OPCIONES'];
   pedidos:any[]=[];
   dataSource = new MatTableDataSource(this.pedidos);
-
+  @ViewChild('paginatorPedidos') paginatorPedidos: MatPaginator;
+  @ViewChild('sortPedidos') sortPedidos: MatSort; 
   constructor(
     private api: ComponentsService,
     public dialog: MatDialog
@@ -44,6 +45,8 @@ export class PedidoComponent implements OnInit {
           data[i].fecha_entrega = this.formatDate(data[i].fecha_entrega);           
         }
         this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginatorPedidos;
+        this.dataSource.sort = this.sortPedidos;
       }
     )
   }

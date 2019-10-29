@@ -56,7 +56,7 @@ export class NuevoPedidoComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   ngOnInit() {
-    /*this.api.getClientes().subscribe(
+    this.api.getClientes().subscribe(
       data => {
         this.clientes = data;
         this.bankCtrl.setValue(this.clientes);
@@ -91,8 +91,8 @@ export class NuevoPedidoComponent implements OnInit {
           map(direccion_pedido => direccion_pedido ? this._filterDir(direccion_pedido) : this.optionsDirecciones.slice())
         );   
       }
-    );*/
-    this.api.getCatalogo().subscribe(
+    );
+    /*this.api.getCatalogo().subscribe(
       data => { 
         this.clientes = data.clientes;
         this.productos = data.productos;
@@ -124,7 +124,7 @@ export class NuevoPedidoComponent implements OnInit {
           map(direccion_pedido => direccion_pedido ? this._filterDir(direccion_pedido) : this.optionsDirecciones.slice())
         );
       } 
-    );
+    );*/
 
     this.registerForm = this.formBuilder.group({
       fecha_entrega: ['', Validators.required],

@@ -23,19 +23,19 @@ export class ComponentsService {
     );
   }  
   getClientes(): Observable<any>{
-    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'catalogo/clientes'))
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'clientes'))
     .pipe(
       catchError(this.handleError('catalogo', undefined))
     );
   }  
   getProductos(): Observable<any>{
-    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'catalogo/productos'))
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'productos'))
     .pipe(
       catchError(this.handleError('catalogo', undefined))
     );
   } 
   getDirecciones(): Observable<any>{
-    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'catalogo/direcciones'))
+    return this.http.get<any>(this.getURL(this.appSettings.restApiServiceBaseUri,'direccion'))
     .pipe(
       catchError(this.handleError('catalogo', undefined))
     );

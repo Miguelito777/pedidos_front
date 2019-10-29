@@ -8,7 +8,7 @@ export class AppconfigService {
   constructor() { }
   
   //DESARROLLO
-  //restApiServiceBaseUri = 'http://localhost:8000/PEDIDOS/' // REST Api 
+  // restApiServiceBaseUri = 'http://localhost:8000/PEDIDOS/' // REST Api 
   //restOAUTH = 'http://localhost:8080/OAUTH_DMZ/webapi/' //oauth
   //restRRHH = 'http://wsdesacit.oj.gob.gt:8080/rrhh/' //rrhh prod
   //reportesOAUTH = 'http://wsdesacit.oj.gob.gt:8080/OAUTH2/webapi/Reportes/generarReporteDirecto'
