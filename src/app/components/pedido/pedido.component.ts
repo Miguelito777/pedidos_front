@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { ComponentsService } from '../components.service';
 import { MatDialog, MatPaginator, MatSort } from '@angular/material';
 import { DetPedidoComponent } from './det-pedido/det-pedido.component';
+import { AppconfigService } from 'app/appconfig.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -35,7 +36,8 @@ export class PedidoComponent implements OnInit {
   @ViewChild('sortPedidos') sortPedidos: MatSort; 
   constructor(
     private api: ComponentsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private appSettings:AppconfigService
   ) { }
 
   ngOnInit() {
@@ -80,6 +82,6 @@ export class PedidoComponent implements OnInit {
     });
   }
   getPDF(row){
-    window.open('http://localhost:8000/PEDIDOS/pedidos/pedidoPDF/'+row.id);
+    window.open(this.appSettings.restApiServiceBaseUri+'pedidoPDF/'+row.id);
   }
 }

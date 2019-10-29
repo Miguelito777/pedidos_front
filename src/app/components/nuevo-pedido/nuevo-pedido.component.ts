@@ -276,7 +276,7 @@ export class NuevoPedidoComponent implements OnInit {
         this.api.setPedido(this.registerForm.value).subscribe(
           data => {
             new recursosVarios().showNotification('top', 'right', "Pedido realizado exitosamente", 2);
-            //this.router.navigate(['/components/PedidosVentas']);
+            this.router.navigate(['/components/PedidosVentas']);
           }
         );
       }else{
