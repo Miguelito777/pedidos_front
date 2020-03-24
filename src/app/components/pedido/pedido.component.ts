@@ -81,7 +81,7 @@ export class PedidoComponent implements OnInit {
       //this.animal = result;
     });
   }
-  getPDF(row){
-    window.open(this.appSettings.restApiServiceBaseUri+'pedidoPDF/'+row.id);
+  getPDF(row){ 
+    window.open(this.appSettings.restApiServiceBaseUri+'pedidos/pedidoPDF/'+row.id);
   }
 }
